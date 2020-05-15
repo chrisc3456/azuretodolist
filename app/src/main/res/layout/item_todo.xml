@@ -24,7 +24,7 @@
             android:layout_marginStart="4dp"
             android:layout_marginLeft="4dp"
             android:checked="@{item.isDone}"
-            android:onCheckedChanged="@{()->itemCallback.onItemToggleDone(item)}"
+            android:onCheckedChanged="@{(_, isChecked)->itemCallback.onItemToggleDone(item, isChecked)}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

@@ -51,8 +51,10 @@ class ItemListFragment : Fragment(), ItemListCallback {
         itemListAdapter.deleteItem(item)
     }
 
-    override fun onItemToggleDone(item: ToDoItem) {
-        itemListViewModel.toggleItemDone(item)
-        itemListAdapter.updateItem(item)
+    override fun onItemToggleDone(item: ToDoItem, isChecked: Boolean) {
+        if (isChecked != item.isDone) {
+            itemListViewModel.toggleItemDone(item)
+            itemListAdapter.updateItem(item)
+        }
     }
 }

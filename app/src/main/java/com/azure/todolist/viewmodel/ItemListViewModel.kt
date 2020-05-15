@@ -1,19 +1,21 @@
 package com.azure.todolist.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.azure.todolist.model.ToDoItem
+import com.azure.todolist.repo.ItemListRepositoryImpl
+import kotlinx.coroutines.launch
 
 class ItemListViewModel: ViewModel() {
+
+    private val itemListRepository = ItemListRepositoryImpl()
     val toDoItems = MutableLiveData<List<ToDoItem>>()
 
     fun refreshToDoList() {
-        toDoItems.value = listOf(
-            ToDoItem(1, "First note", false),
-            ToDoItem(2, "Second note is a bit longer", false),
-            ToDoItem(3, "Third is even longer and is also complete", true)
-        )
+        viewModelScope.launch {
+            toDoItems.postValue(itemListRepository.getToDoList())
+        }
     }
 
     fun toggleItemDone(item: ToDoItem) {
@@ -21,16 +23,20 @@ class ItemListViewModel: ViewModel() {
         updateItem(item)
     }
 
-    fun deleteItem(item: ToDoItem) {
-        Log.d("##ViewModel", "Delete item ${item.id}")
-    }
-
     fun updateItemContent(item: ToDoItem, newContent: String) {
         item.content = newContent
         updateItem(item)
     }
 
-    private fun updateItem(item: ToDoItem) {
+    fun deleteItem(item: ToDoItem) {
+        viewModelScope.launch {
+            itemListRepository.deleteItem(item)
+        }
+    }
 
+    private fun updateItem(item: ToDoItem) {
+        viewModelScope.launch {
+            itemListRepository.updateItem(item)
+        }
     }
 }
