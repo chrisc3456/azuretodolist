@@ -1,7 +1,7 @@
 package com.azure.todolist.model
 
 data class ToDoItem(
-    val id: Int,
+    val id: String,
     var content: String,
     var isDone: Boolean
 )

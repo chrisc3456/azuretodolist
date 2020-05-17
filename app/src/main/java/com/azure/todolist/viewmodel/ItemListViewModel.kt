@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.azure.todolist.model.ToDoItem
 import com.azure.todolist.repo.ItemListRepositoryImpl
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ItemListViewModel: ViewModel() {
@@ -13,7 +14,7 @@ class ItemListViewModel: ViewModel() {
     val toDoItems = MutableLiveData<List<ToDoItem>>()
 
     fun refreshToDoList() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             toDoItems.postValue(itemListRepository.getToDoList())
         }
     }
@@ -29,13 +30,13 @@ class ItemListViewModel: ViewModel() {
     }
 
     fun deleteItem(item: ToDoItem) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             itemListRepository.deleteItem(item)
         }
     }
 
     private fun updateItem(item: ToDoItem) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             itemListRepository.updateItem(item)
         }
     }
