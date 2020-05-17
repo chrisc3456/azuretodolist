@@ -11,22 +11,17 @@ class ItemListRepositoryImpl: ItemListRepository {
 
     private val azureService: AzureToDoService = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
-        .baseUrl("http://exampletodolist.azurewebsites.net/")
+        .baseUrl("https://exampletodolist.azurewebsites.net/")
         .build()
         .create(AzureToDoService::class.java)
 
     override fun getToDoList(): List<ToDoItem> {
-        /*return listOf(
-            ToDoItem("1", "First note", false),
-            ToDoItem("2", "Second note is a bit longer", false),
-            ToDoItem("3", "Third is even longer and is also complete", true)
-        )*/
         val serviceCall = azureService.getToDoList()
 
         return try {
             val response = serviceCall.execute()
             if (response.isSuccessful && response.body() != null) {
-                response.body()!!.items.toInternalModel()
+                response.body()!!.toInternalModel()
             } else {
                 Log.d("##Repo", "No response from service")
                 emptyList<ToDoItem>()
