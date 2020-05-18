@@ -14,11 +14,14 @@ interface AzureToDoService {
     ): Call<AzureToDoResponse.ToDoItemResponse>
 
     @POST("api/todo")
-    fun createToDoItem(): Call<AzureToDoResponse.ToDoItemResponse>
+    fun createToDoItem(
+        @Query("taskDescription") taskDescription: String
+    ): Call<AzureToDoResponse.ToDoItemResponse>
 
     @PUT("api/todo/{id}")
     fun updateToDoItem(
-        @Path("id") id: String
+        @Path("id") id: String,
+        @Body item: AzureToDoResponse.ToDoItemResponse
     ): Call<AzureToDoResponse.ToDoItemResponse>
 
     @DELETE("api/todo/{id}")
