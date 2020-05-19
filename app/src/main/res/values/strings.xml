@@ -7,4 +7,5 @@
     <string name="dialog_title_edit">Edit Item</string>
     <string name="dialog_button_positive">Save</string>
     <string name="dialog_button_negative">Cancel</string>
+    <string name="dialog_input_hint">Task description</string>
 </resources>

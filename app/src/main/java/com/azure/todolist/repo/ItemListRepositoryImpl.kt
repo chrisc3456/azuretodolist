@@ -33,6 +33,11 @@ class ItemListRepositoryImpl: ItemListRepository {
         }
     }
 
+    override fun getToDoItem(id: String): Result<ToDoItem> {
+        val serviceCall = azureService.getToDoItem(id)
+        return handleToDoItemResponse(serviceCall)
+    }
+
     override fun addItem(item: ToDoItem): Result<ToDoItem> {
         val serviceCall = azureService.createToDoItem(AzureToDoResponse.ToDoItemResponse("", "", item.content, false))
         return handleToDoItemResponse(serviceCall)

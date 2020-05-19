@@ -9,16 +9,25 @@ import com.azure.todolist.repo.ItemListRepositoryImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ItemListViewModel: ViewModel() {
+class ItemViewModel: ViewModel() {
 
     private val itemListRepository = ItemListRepositoryImpl()
     val toDoItemList = MutableLiveData<Result<List<ToDoItem>>>()
     val toDoItem = MutableLiveData<Result<ToDoItem>>()
+    val updatedToDoItem = MutableLiveData<Result<ToDoItem>>()
 
     fun refreshToDoList() {
         viewModelScope.launch(Dispatchers.IO) {
             toDoItemList.postValue(
                 itemListRepository.getToDoList()
+            )
+        }
+    }
+
+    fun refreshToDoItem(id: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            toDoItem.postValue(
+                itemListRepository.getToDoItem(id)
             )
         }
     }
@@ -41,7 +50,7 @@ class ItemListViewModel: ViewModel() {
 
     fun createItem(content: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            toDoItem.postValue(
+            updatedToDoItem.postValue(
                 itemListRepository.addItem(ToDoItem("", content, false))
             )
         }
@@ -49,7 +58,7 @@ class ItemListViewModel: ViewModel() {
 
     private fun updateItem(item: ToDoItem) {
         viewModelScope.launch(Dispatchers.IO) {
-            toDoItem.postValue(
+            updatedToDoItem.postValue(
                 itemListRepository.updateItem(item)
             )
         }

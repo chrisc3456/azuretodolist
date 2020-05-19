@@ -41,12 +41,15 @@ class ItemListAdapter(private val itemListCallback: ItemListCallback): RecyclerV
     }
 
     fun updateItem(item: ToDoItem) {
-        val position = itemList.indexOf(item)
-        if (position != -1) {
-            notifyItemChanged(position)
-        } else {
+        val existingItem = itemList.firstOrNull { it.id == item.id }
+        if (existingItem == null) {
             itemList.add(item)
             notifyItemInserted(itemList.size)
+        } else {
+            val position = itemList.indexOf(existingItem)
+            itemList.removeAt(position)
+            itemList.add(position, item)
+            notifyItemChanged(position)
         }
     }
 
