@@ -39,6 +39,14 @@ class ItemListViewModel: ViewModel() {
         }
     }
 
+    fun createItem(content: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            toDoItem.postValue(
+                itemListRepository.addItem(ToDoItem("", content, false))
+            )
+        }
+    }
+
     private fun updateItem(item: ToDoItem) {
         viewModelScope.launch(Dispatchers.IO) {
             toDoItem.postValue(

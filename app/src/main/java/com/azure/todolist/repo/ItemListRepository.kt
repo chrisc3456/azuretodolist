@@ -5,7 +5,7 @@ import com.azure.todolist.model.Result
 
 interface ItemListRepository {
     fun getToDoList(): Result<List<ToDoItem>>
-    fun addItem(item: ToDoItem)
+    fun addItem(item: ToDoItem): Result<ToDoItem>
     fun updateItem(item: ToDoItem): Result<ToDoItem>
-    fun deleteItem(item: ToDoItem)
+    fun deleteItem(item: ToDoItem): Result<ToDoItem>
 }

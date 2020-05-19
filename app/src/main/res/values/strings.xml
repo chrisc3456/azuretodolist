@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">To-Do List</string>
     <string name="placeholder_content">Item content here</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dialog_message_add"></string>
+    <string name="dialog_title_add">New Item</string>
+    <string name="dialog_message_edit"></string>
+    <string name="dialog_title_edit">Edit Item</string>
+    <string name="dialog_button_positive">Save</string>
+    <string name="dialog_button_negative">Cancel</string>
 </resources>

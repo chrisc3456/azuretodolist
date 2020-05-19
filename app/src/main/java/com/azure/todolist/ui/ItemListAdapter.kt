@@ -42,7 +42,12 @@ class ItemListAdapter(private val itemListCallback: ItemListCallback): RecyclerV
 
     fun updateItem(item: ToDoItem) {
         val position = itemList.indexOf(item)
-        notifyItemChanged(position)
+        if (position != -1) {
+            notifyItemChanged(position)
+        } else {
+            itemList.add(item)
+            notifyItemInserted(itemList.size)
+        }
     }
 
     inner class ItemViewHolder(private val binding: ItemTodoBinding): RecyclerView.ViewHolder(binding.root) {

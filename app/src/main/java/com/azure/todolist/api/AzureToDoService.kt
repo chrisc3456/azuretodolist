@@ -15,7 +15,7 @@ interface AzureToDoService {
 
     @POST("api/todo")
     fun createToDoItem(
-        @Query("taskDescription") taskDescription: String
+        @Body item: AzureToDoResponse.ToDoItemResponse
     ): Call<AzureToDoResponse.ToDoItemResponse>
 
     @PUT("api/todo/{id}")

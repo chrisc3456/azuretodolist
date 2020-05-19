@@ -28,6 +28,17 @@ android {
     dataBinding {
         enabled = true
     }
+    flavorDimensions 'version'
+    productFlavors {
+        local {
+            dimension = 'version'
+            buildConfigField "String", "BASE_URL", "\"https://localhost:7071/\""
+        }
+        hosted {
+            dimension = 'version'
+            buildConfigField "String", "BASE_URL", "\"https://exampletodolist.azurewebsites.net/\""
+        }
+    }
 
 }
 
